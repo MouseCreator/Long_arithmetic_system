@@ -8,8 +8,7 @@ private:
 public:
 	//Constructor
 	FiniteField() {
-		
-
+		p = PositiveNumber();
 	}
 	FiniteField(PositiveNumber p_) {
 		p = p_;

@@ -3,19 +3,17 @@
 
 #include "SignedNumber.h"
 #include "FiniteNumber.h"
-//#include "Exponent.h"
 #include "Polynomial.h"
 #include "FiniteGroup.h"
 #include "CalculationOfSquareRoot.h"
 #include "MillerRabin.h"
-//#include "Pollard.h"
 #include "Euler.h"
 
 #include <random>
 #include <string>
 #include <chrono>
 #include <fstream>
-//Test by M. Tyshchenko
+
 TEST_CASE("Positive numbers") {
 	std::ifstream f;
 	f.open("../Positive numbers Test.txt");
@@ -36,7 +34,6 @@ TEST_CASE("Positive numbers") {
 	f.close();
 }
 
-//Test by V.Avramenko
 TEST_CASE("Division Test for PositiveNumber") {
 	std::ifstream f;
 	f.open("../Division Test for PositiveNumber.txt");
@@ -60,7 +57,6 @@ TEST_CASE("Division Test for PositiveNumber") {
 	f.close();
 }
 
-//Test by V.Avramenko
 TEST_CASE("Division Test for SignedNumber") {
 	std::ifstream f;
 	f.open("../Division Test for SignedNumber.txt");
@@ -87,7 +83,7 @@ TEST_CASE("Division Test for SignedNumber") {
 	f.close();
 }
 
-//Test by V.Avramenko
+
 TEST_CASE("Remainder Test for Positive Numbers") {
 	std::ifstream f;
 	f.open("../Remainder Test for Positive Numbers.txt");
@@ -111,7 +107,7 @@ TEST_CASE("Remainder Test for Positive Numbers") {
 	f.close();
 }
 
-//Test by V.Avramenko
+
 TEST_CASE("Remainder Test for Signed Numbers") {
 	std::ifstream f;
 	f.open("../Remainder Test for Signed Numbers.txt");
@@ -137,7 +133,7 @@ TEST_CASE("Remainder Test for Signed Numbers") {
 	CHECK(p3.toString() == "-1");
 }
 
-//Test by M. Tyshchenko
+
 TEST_CASE("Test on random numbers") {
 	std::random_device rand_dev;
 	std::mt19937 generator(rand_dev());
@@ -157,7 +153,6 @@ TEST_CASE("Test on random numbers") {
 	}
 }
 
-//Tests by M. Tyshchenko
 TEST_CASE("Signed numbers") {
 
 	std::ifstream f;
@@ -182,7 +177,7 @@ TEST_CASE("Signed numbers") {
 	f.close();
 
 }
-//Testing FiniteNumbers by Vlad Avramenko
+
 TEST_CASE("Finite numbers") {
 	std::ifstream f;
 	f.open("../Finite numbers Tests.txt");
@@ -256,7 +251,7 @@ TEST_CASE("Finite numbers") {
 	 std::cout << num.toString();
 }
 
-//Tests by M. Tyshchenko
+
 TEST_CASE("Test zero") {
 	std::ifstream f;
 	f.open("../Test zero.txt");
@@ -270,7 +265,7 @@ TEST_CASE("Test zero") {
 	f.close();
 }
 
-//Tests for exponentiation by M. Tyshchenko
+
 TEST_CASE("Exponent") {
 	std::ifstream f;
 	f.open("../Exponent Test.txt");
@@ -398,7 +393,7 @@ TEST_CASE("Test binary form") {
 	f.close();
 }
 
-//Created by Y.Kishchuk
+
 TEST_CASE("Test setIdentity and getIdentity methods") {
 	FiniteGroup group(PositiveNumber("10"));
 
@@ -469,7 +464,7 @@ TEST_CASE("Test ElementOrder method") {
 	CHECK_THROWS_AS(group3.ElementOrder(FiniteNumber("10 x10")).toString(), std::overflow_error);
 }
 
-//Test by T. Pysarenkov
+
 TEST_CASE("Test isGenerator method") {
 	FiniteGroup g1(PositiveNumber("x7"));
 	g1.setIdentity(FiniteNumber("1 x7"));
@@ -505,7 +500,7 @@ TEST_CASE("Test isGenerator method") {
 	CHECK(!g3.isGenerator(FiniteNumber("8 x9")));
 }
 
-//Tests by P. Velychko #6
+
 TEST_CASE("TestNonQuadraticPositive") {
 	std::ifstream f;
 	f.open("../TestNonQuadraticPositive.txt");

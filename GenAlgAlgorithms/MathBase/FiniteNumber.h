@@ -21,6 +21,19 @@ public:
 		this->digits = base.getDigits();
 		toFieldSize();
 	}
+	FiniteNumber(SignedNumber base, PositiveNumber p) {
+		f = (FiniteField(p));
+		if (base.isPositive()) {
+			this->digits = base.asPositive().getDigits();
+			toFieldSize();
+		}
+		else {
+			PositiveNumber pos = base.asPositive();
+			PositiveNumber base_positive = p - (pos % p);
+			this->digits = base.asPositive().getDigits();
+			toFieldSize();
+		}
+	}
 	FiniteNumber(std::vector<int> v, FiniteField f_) : f(f_.getP()) {
 		digits = v;
 		toFieldSize();
@@ -109,7 +122,7 @@ public:
 		if (left < n_copy) {
 			is_greater = false;
 		}
-		left.substract(n);
+		left.subtract(n);
 		if (is_greater) {
 			left.toFieldSize();
 			return left;
@@ -121,15 +134,12 @@ public:
 	}
 
 	FiniteNumber& operator-=(const FiniteNumber& n) {
-		/*this->substract(n);
-		this->toFieldSize();
-		return *this;*/
 		bool is_greater = true;
 		FiniteNumber n_copy = n;
 		if (*this < n_copy) {
 			is_greater = false;
 		}
-		this->substract(n);
+		this->subtract(n);
 		if (is_greater) {
 			this->toFieldSize();
 			return *this;
@@ -221,12 +231,8 @@ public:
 		while (true) {
 			SignedNumber d("0");
 
-			/*while (n >= g) {
-				n -= g;
-				d.addTo(SignedNumber("-1"));
-			}*/
 			d = SignedNumber("-1") * (n / g);
-			n -= d * g;
+			n -= (d * g).asPositive();
 			SignedNumber temp_s = s0;
 			s0 = s1;
 			d.multiplyBy(s1);
@@ -242,7 +248,7 @@ public:
 			}
 		}
 		if (s1.getSign() == MINUS) {
-			PositiveNumber s1_pos(s1);
+			PositiveNumber s1_pos(s1.asPositive());
 			while (s1_pos > p) {
 				s1_pos -= p;
 			}

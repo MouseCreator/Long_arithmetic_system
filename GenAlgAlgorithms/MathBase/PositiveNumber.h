@@ -116,11 +116,11 @@ public:
 	}
 
 	friend PositiveNumber operator-(PositiveNumber left, const PositiveNumber& n) {
-		left.substract(n);
+		left.subtract(n);
 		return left;
 	}
 	PositiveNumber& operator-=(const PositiveNumber& n) {
-		this->substract(n);
+		this->subtract(n);
 		return *this;
 	}
 	bool operator==(const PositiveNumber& n) const {
@@ -333,7 +333,7 @@ public:
 	*
 	* Subsracts two numbers. Returns the module of the result.
 	*/
-	virtual void substract(PositiveNumber other) {
+	virtual void subtract(PositiveNumber other) {
 		std::vector<int>* bigger = (*this > other) ? &this->digits : &other.digits;
 		std::vector<int>* smaller = (*this <= other) ? &this->digits : &other.digits;
 		bool substractOne = false;
@@ -357,10 +357,10 @@ public:
 	/**
 	* Substracts max of n1 and n2 from min of n1 and n2
 	*/
-	PositiveNumber substractFrom(PositiveNumber n2) const {
+	PositiveNumber subtractFrom(PositiveNumber n2) const {
 		PositiveNumber n = PositiveNumber();
 		n.digits = this->digits;
-		n.substract(n2);
+		n.subtract(n2);
 		return n;
 	}
 	/**

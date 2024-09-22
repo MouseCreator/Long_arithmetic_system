@@ -16,8 +16,6 @@ class PolynomialElement {
         "Type TCoefficient does not have an operator- defined.");
     static_assert(std::is_same<decltype(std::declval<TCoefficient>()* std::declval<TCoefficient>()), TCoefficient>::value,
         "Type TCoefficient does not have an operator* defined.");
-    /*static_assert(std::is_same<decltype(std::declval<TCoefficient>() / std::declval<TCoefficient>()), TCoefficient>::value,
-        "Type TCoefficient does not have an operator/ defined.");*/
 
 
 private:

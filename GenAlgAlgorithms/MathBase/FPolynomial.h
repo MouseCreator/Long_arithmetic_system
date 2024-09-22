@@ -11,7 +11,8 @@ class FPolynomial : public Polynomial<FiniteNumber>
 {
 protected:
 	FiniteField f;
-	FPolynomial() {}
+	FPolynomial() {
+	}
 	FPolynomial(const std::string& str) : Polynomial(str) {};
 	FPolynomial(const Polynomial& pol, const FiniteField& f) : Polynomial(pol), f(f) {}
 
@@ -31,7 +32,9 @@ public:
 
 		s = replaceAll(s, " ", ""); //no spaces
 		s = replaceAll(s, "-", "+-"); //for split
-
+		if (s.empty()) {
+			s = "0";
+		}
 		if (s[0] != '+')
 			s = "+" + s;
 		s = s + '+';
@@ -122,7 +125,7 @@ public:
 			throw std::invalid_argument("Division by zero");
 		}
 
-		auto quotient = FPolynomial();
+		FPolynomial quotient = FPolynomial();
 		quotient.setP(divisor.getP());
 		FPolynomial dividend = *this;
 		deg1 = dividend.degree();

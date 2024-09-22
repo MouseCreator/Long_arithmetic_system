@@ -45,7 +45,7 @@ public:
 		else if (degree.is_prime()) {
 			RPolynomial res = RPolynomial();
 			SignedNumber uno = SignedNumber("1");
-			for (PositiveNumber i = degree - uno; i >= PositiveNumber("0"); i -= uno) {
+			for (PositiveNumber i = degree - uno.asPositive(); i >= PositiveNumber("0"); i -= uno.asPositive()) {
 				res.coefficients.push_back(PolynomialElement<SignedNumber>(uno, i));
 				if (i.toString() == "0") {
 					break;
@@ -150,7 +150,7 @@ public:
 			
 			auto num1 = divident.coefficients.front().getCoefficient().toUnsigned();
 			auto num2 = divider.coefficients.front().getCoefficient().toUnsigned();
-			if (!(num1 % num2 == SignedNumber())) {
+			if (!(num1 % num2).isZero()) {
 				break;
 			}
 			
@@ -172,6 +172,7 @@ public:
 	RPolynomial operator %(const RPolynomial& divider) const {
 
 		auto deg1 = PositiveNumber("0"), deg2 = deg1;
+		auto zero = PositiveNumber("0");
 		auto nullNum = SignedNumber("0");
 
 		if (/*divider.degree() <= deg1*/divider.coefficients.empty() || divider.coefficients.front().getCoefficient() == nullNum) {
@@ -188,7 +189,7 @@ public:
 
 			auto num1 = divident.coefficients.front().getCoefficient().toUnsigned();
 			auto num2 = divider.coefficients.front().getCoefficient().toUnsigned();
-			if (!(num1 % num2 == nullNum)) {
+			if (!(num1 % num2 == zero)) {
 				return divident;
 			}
 			
