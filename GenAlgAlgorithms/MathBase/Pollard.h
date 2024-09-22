@@ -4,9 +4,6 @@
 #include <vector>
 #include <map>
 
-/*
-	Implemented by Oleksii Onishchenko and Dmytro Mandziuk 
-*/
 template<typename NumberType>
 std::vector<NumberType> naiveFactorization(NumberType n) {
 	std::vector<NumberType> result;

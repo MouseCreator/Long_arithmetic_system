@@ -2,9 +2,6 @@
 #include <vector>
 
 
-/*
-	Implemented by Dmytro Mandziuk and Oleksii Onishchenko
-*/
 template <typename NumberType>
 NumberType mod_power(NumberType base, NumberType exp, NumberType mod)
 {
@@ -18,7 +15,7 @@ NumberType mod_power(NumberType base, NumberType exp, NumberType mod)
 			res = (res * base) % mod;
 
 		// y must be even now
-		exp = exp / NumberType(2); // y = y/2
+		exp = exp / NumberType(2);
 		base = (base * base) % mod;
 	}
 

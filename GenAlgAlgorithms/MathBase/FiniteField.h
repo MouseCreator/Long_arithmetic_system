@@ -1,7 +1,6 @@
 #pragma once
 #include "PositiveNumber.h"
-//Created by M.Tyshchenko
-//Modified by A.Volyk
+
 class FiniteField
 {
 private:

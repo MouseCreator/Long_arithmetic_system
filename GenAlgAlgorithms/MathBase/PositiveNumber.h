@@ -9,8 +9,6 @@
 *
 *
 */
-//Created by M.Tyshchenko and V. Avramenko
-//Edited by V.Horbanov
 class PositiveNumber {
 private:
 	static const int vectorP = 10;
@@ -145,12 +143,11 @@ public:
 		}
 		return true;
 	}
-	//Implemented by Artem Volyk
+
 	void operator >>= (const int i) {
 		std::rotate(digits.begin(), digits.begin() + 1, digits.end());
 		digits[0] = 0;
 	}
-	//Implemented by Vlad Avramenko, edited by V.Horbanov
 	//Division for PositiveNumbers
 
 	PositiveNumber operator/(const PositiveNumber& other) const{
@@ -207,7 +204,6 @@ public:
 	PositiveNumber operator%(const PositiveNumber& other) const {
 		return remainder(*this, other);
 	}
-	//By V. Avramenko
 	//Inefficient, did not find a way of getting square root (efficiently) in long arithmetics
 	bool is_prime() {
 		PositiveNumber two = PositiveNumber("2");
@@ -275,11 +271,10 @@ public:
 		return true;
 	}
 
-	//Implemented by Y. Kishchuk
+
 
 
 	//Division with remainder 
-	//Implemented by Artem Volyk
 	int operator % (int& n) const {
 		int size = digits.size();
 		std::vector<int> parts(0, size / 6 + 1);
@@ -404,7 +399,6 @@ public:
 	* 5.shift(2): 5 => 500
 	* 100.shift(-1): 100 => 10
 	* 
-	* Implemented by M. Tyshechenko
 	*/
 	PositiveNumber shift(int numDigits) {
 		PositiveNumber number = PositiveNumber(*this);

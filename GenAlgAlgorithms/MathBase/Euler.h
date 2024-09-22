@@ -2,8 +2,6 @@
 #include "Pollard.h"
 #include "GCD.h"
 #include "Exponent.h"
-//Created mt V.Harlov
-//Improoved by Artem Volyk
 PositiveNumber EulerForPrimeValues(PositiveNumber number, PositiveNumber degree = PositiveNumber("1"))
 {
     PositiveNumber one = PositiveNumber("1");

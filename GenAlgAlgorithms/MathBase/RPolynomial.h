@@ -5,8 +5,6 @@
 
 #include "Exponent.h"
 
-//Implemented by V.Avramenko and M.Tyshchenko
-// Modified by Y. Kishchuk and V.Horbanov
 /*
 * Class for Polynomial in Polynomial Ring (signed coefficients)
 */
@@ -30,7 +28,7 @@ public:
 
 	RPolynomial(std::string s) : Polynomial(s) {}
 
-	//Implemented by V.Avramenko
+
 
 	/*
 	Cyclotomic Polynomial

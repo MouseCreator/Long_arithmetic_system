@@ -12,7 +12,6 @@
 #include "Euler.h"
 
 
-// Created by Y.Kishchuk and T.Pysarenkov
 class FiniteGroup {
 public:
     FiniteGroup(const FiniteField& f) : factorization(*(new std::map<PositiveNumber, int>()))

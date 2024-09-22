@@ -4,10 +4,10 @@
 
 #include "SignedNumber.h"
 
-// Implemented by M.Tyshchenko, Y. Kishchuk and V.Horbanov
+
 template<typename TCoefficient>
 class PolynomialElement {
-    // Implemented by Y. Kishchuk
+
     static_assert(std::is_member_function_pointer<decltype(&TCoefficient::toString)>::value,
         "Type TCoefficient does not have a toString member function.");
     static_assert(std::is_same<decltype(std::declval<TCoefficient>() + std::declval<TCoefficient>()), TCoefficient>::value,
@@ -21,7 +21,6 @@ class PolynomialElement {
 
 
 private:
-    // Implemented by M.Tyshchenko
     PositiveNumber degree;
     TCoefficient coefficient;
 
@@ -66,7 +65,6 @@ public:
         return coef + "x^" + degree.toString();
     }
 
-    // Implemented by Y. Kishchuk 
     PolynomialElement operator+(const PolynomialElement& right) const {
         //assert(this->degree == right.degree, "Elements have different degree");
         return PolynomialElement(this->coefficient + right.coefficient, this->degree);

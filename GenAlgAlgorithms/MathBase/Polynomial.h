@@ -9,7 +9,6 @@ template <typename T>
 class has_isPositive;
 
 
-// Implemented by V.Avramenko, M.Tyshchenko, Y. Kishchuk and V.Horbanov
 template<typename TCoefficient>
 class Polynomial {
 protected:
@@ -180,7 +179,6 @@ public:
 		return result;
 	}
 
-	// Implemented by Y. Kishchuk
 
 	virtual Polynomial operator+(const Polynomial& right) const {
 		Polynomial<TCoefficient> result;

@@ -1,6 +1,6 @@
 #pragma once
 #include "PositiveNumber.h"
-//Created by M.Tyshchenko
+
 enum Sign { PLUS, MINUS };
 
 class SignedNumber : public PositiveNumber {
@@ -224,9 +224,6 @@ public:
 		this->sign = (this->sign == other.sign) ? PLUS : MINUS;
 	}
 
-	/*
-	* Implemented by Vlad Avramenko
-	*/
 
 	//Division for SignedNumbers
 	SignedNumber operator/(const SignedNumber& other) const{

@@ -3,9 +3,6 @@
 #include "FiniteField.h"
 #include "SignedNumber.h"
 #include "GCD.h"
-//Created by M.Tyshchenko
-//Modified by A.Volyk
-//Modified by V.Horbanov
 
 class FiniteNumber : public PositiveNumber {
 private: 
@@ -79,9 +76,7 @@ public:
 		return f.getP();
 	}
 
-	/*
-	* Implemented by Vlad Avramenko
-	*/
+
 
 	/*
 	* overloaded operators
@@ -156,11 +151,6 @@ public:
 		return this->equals(const_cast<FiniteNumber&>(n)) && this->getP().equals(const_cast<FiniteNumber&>(n).getP());
 	}
 
-	//friend FiniteNumber operator%(const FiniteNumber& n1, const FiniteNumber& n2) {
-	//	assert(n1.f.getP() == n2.f.getP());
-	//	return n1 - (n2 * (n1 / n2));
-	//}
-
 	bool operator>(FiniteNumber& n) const {
 		PositiveNumber p1 = getP();
 		PositiveNumber p2 = n.getP();
@@ -212,9 +202,6 @@ public:
 	}
 
 
-	/*
-	* Implemented by Vlad Avramenko
-	*/
 
 	/*
 	* Find inverse number

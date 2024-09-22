@@ -1,13 +1,4 @@
-﻿//------------------------------------------------------------------------//
-//                                                                        //
-// Task 6 Calculation of the square root of a number Velychko Pavlo PI-22 //
-//                                                                        //
-//------------------------------------------------------------------------//
-
-
-// This program asks the user for the value of a number and a prime number p,
-// and then calls the tonelli_shanks function to calculate the square root of a modulo the prime p.
-// 
+﻿
 // The result of the program execution will be both possible values ​​of the square roots of the number a modulo the prime number p.
 // 
 // 
@@ -16,8 +7,6 @@
 // This is because 25 is a quadratic remainder modulo 101
 // (that is, there exists an integer x such that x^2 ≡ 25 modulo 101), and so it has two square roots modulo 101.
 //  
-// 
-// It can be seen that the program works correctly and finds the roots of the quadratic equation for arbitrary numbers a and prime p.
 #pragma once
 #include <iostream>
 #include <vector>

@@ -6,3 +6,4 @@ MathBase/x64/**
 *.vcxproj.filters
 *.vcxproj.user
 *.vcxproj
+*.sln

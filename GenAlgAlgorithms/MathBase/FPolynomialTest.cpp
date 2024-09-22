@@ -4,7 +4,6 @@
 
 #include <string>
 #include <fstream>
-// Implemented by Y. Kishchuk
 TEST_SUITE("FPolynomial")
 {
 	TEST_CASE("Addition")
