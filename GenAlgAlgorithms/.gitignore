@@ -1,0 +1,8 @@
+x64/
+Debug/
+.vs/
+MathBase/Debug/**
+MathBase/x64/**
+*.vcxproj.filters
+*.vcxproj.user
+*.vcxproj
