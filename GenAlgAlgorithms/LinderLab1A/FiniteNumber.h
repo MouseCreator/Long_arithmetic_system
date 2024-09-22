@@ -10,7 +10,7 @@
 
 class FiniteNumber : public PositiveNumber {
 private: 
-	//p stands for field (����)
+	//p stands for field
 	FiniteField f;
 	void setP(PositiveNumber p, bool gotNegativeBase = false) {
 		f.setP(p);
@@ -31,11 +31,17 @@ public:
 
 	}
 	FiniteNumber(std::string from, PositiveNumber p) {
+		initDigits(from, p);
+	}
+	void initDigits(std::string from, PositiveNumber p) {
 		bool negativeBase = parseIsNegative(from);
 		this->digits = parseDigits(from);
 		toFieldSize();
 		setP(p, negativeBase);
-		
+	}
+	FiniteNumber(char* from, PositiveNumber p) {
+		std::string str = std::string(from);
+		initDigits(str, p);
 	}
 
 	FiniteNumber(long long a, long long p) : PositiveNumber(a) {

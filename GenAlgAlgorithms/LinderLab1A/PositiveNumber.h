@@ -73,6 +73,11 @@ public:
 	}
 	PositiveNumber() {
 	}
+
+	PositiveNumber(char* digits) {
+		this->digits = parseDigits(std::string(digits));
+		this->trim();
+	}
 	PositiveNumber(std::string digitsString) {
 		this->digits = parseDigits(digitsString);
 		this->trim();
@@ -117,6 +122,10 @@ public:
 		return *this;
 	}
 	bool operator==(const PositiveNumber& n) const {
+		return equals(n);
+	}
+	bool operator==(const long long num) const {
+		PositiveNumber n = PositiveNumber(num);
 		return equals(n);
 	}
 	bool operator!=(const PositiveNumber& n) const {
