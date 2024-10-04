@@ -12,7 +12,14 @@
             .WithName("Test")
             .WithOpenApi();
 
-            // Add more here
+            app.MapGet("/testTimeout", async () =>
+            {
+                string response = "test";
+                await Task.Delay(10000);
+                return Results.Json(response);
+            })
+            .WithName("TestTimeout")
+            .WithOpenApi();
         }
     }
 }

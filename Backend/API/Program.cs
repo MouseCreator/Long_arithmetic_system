@@ -1,4 +1,5 @@
 using API.Endpoints;
+using API.Service.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<TimeoutMiddleware>();
 
 app.MapGeneral_Get();
 
