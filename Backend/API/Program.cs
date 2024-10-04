@@ -1,3 +1,5 @@
+using API.Endpoints;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
@@ -24,12 +26,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/test", () =>
-{
-    string response = "test";
-    return Results.Json(response);
-})
-.WithName("Test")
-.WithOpenApi();
+app.MapGeneral_Get();
 
 app.Run();
