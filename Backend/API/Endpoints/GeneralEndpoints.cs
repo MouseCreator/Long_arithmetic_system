@@ -22,10 +22,10 @@ namespace API.Endpoints
             .WithOpenApi();
 
             //no difference if used SuccessResponse or ErrorResponse when time is exceeded, TimeoutMiddleware handles it as ErrorResponse
-            app.MapGet("S/testTimeout", async () =>
+            app.MapGet("S/testTimeout", async (int delaySeconds = 10) =>
             {
                 var data = "Тестовий запит пройшов успішно";
-                await Task.Delay(5000);
+                await Task.Delay(TimeSpan.FromSeconds(delaySeconds));
 
                 return Results.Json(ApiResponse<string>.SuccessResponse(data));
             })
