@@ -28,6 +28,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseMiddleware<TimeoutMiddleware>();
+app.UseMiddleware<ResponseMiddleware>();
 
 app.MapGeneral_Get();
 

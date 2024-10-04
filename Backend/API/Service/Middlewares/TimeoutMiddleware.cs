@@ -5,10 +5,7 @@
         private readonly RequestDelegate _next;
         private readonly TimeSpan _timeout = TimeSpan.FromSeconds(10);
 
-        public TimeoutMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
+        public TimeoutMiddleware(RequestDelegate next) => _next = next;
 
         public async Task InvokeAsync(HttpContext context)
         {
@@ -23,16 +20,19 @@
 
                 if (completedTask == timeoutTask)
                 {
+                    // timeout
                     context.Response.StatusCode = StatusCodes.Status408RequestTimeout;
-                    await context.Response.WriteAsJsonAsync(new { message = "Час на виконання операції вичерпано" });
+                    var timeoutResponse = ApiResponse<string>.ErrorResponse("Час на виконання операції вичерпано");
+                    await context.Response.WriteAsJsonAsync(timeoutResponse);
                 }
                 else
                 {
-                    // if request proccessed before timeout, continue request progress
+                    // continue executing if time limit not exeeded
                     cts.Cancel();
-                    await requestTask; // finish request proccess
+                    await requestTask; // end request proccessing
                 }
             }
         }
     }
+
 }
