@@ -8,6 +8,7 @@
 #include "CalculationOfSquareRoot.h"
 #include "MillerRabin.h"
 #include "Euler.h"
+#include "scanner.h"
 
 #include <random>
 #include <string>
@@ -789,4 +790,41 @@ TEST_CASE("Carmichel")
 	CHECK(Carmichel(value3).toString() == "6");
 	CHECK(Carmichel(value4).toString() == "156");
 	f.close();
+}
+
+TEST_CASE("Scanner")
+{
+	parse::Scanner* scanner = new parse::IterativeScanner();
+	std::string msg1 = "1 + 2 * 3 + x**log(444,56) -xXx";
+	parse::ScanResult result = scanner->scan(msg1);
+
+	CHECK(result.hasErrors() == false);
+
+	std::vector<parse::Token> expected = {
+		{0, parse::NUMBER, "1"},
+		{2, parse::OPERATOR, "+"},
+		{4, parse::NUMBER, "2"},
+		{6, parse::OPERATOR, "*"},
+		{8, parse::NUMBER, "3"},
+		{10, parse::OPERATOR, "+"},
+		{12, parse::VARIABLE, "x"},
+		{13, parse::OPERATOR, "^"},
+		{15, parse::FUNCTION, "log"},
+		{18, parse::BRACKET, "("},
+		{19, parse::NUMBER, "444"},
+		{22, parse::COMMA, ","},
+		{23, parse::NUMBER, "56"},
+		{25, parse::BRACKET, ")"},
+		{27, parse::OPERATOR, "-"},
+		{28, parse::VARIABLE, "x"},
+		{29, parse::VARIABLE, "x"},
+		{30, parse::VARIABLE, "x"},
+	};
+	std::size_t size = result.tokens.size();
+	CHECK(size == expected.size());
+	for (std::size_t i = 0; i < size; i++) {
+		CHECK(result.tokens[i] == expected[i]);
+	}
+	delete scanner;
+
 }
