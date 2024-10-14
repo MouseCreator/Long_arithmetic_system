@@ -29,8 +29,8 @@ namespace parse {
     class ScanSession {
     private:
         std::string input;
-        int position;
-        int lookahead;
+        int position_index;
+        int lookahead_index;
         bool finished;
         std::vector<Token> tokens;
         std::vector<TokenError> errors;
@@ -41,9 +41,9 @@ namespace parse {
         std::size_t size;
 
         void _scan() {
-            for (; position < size; _increment()) {
-                current = input[position];
-                next = lookahead < size ? input[lookahead] : ' ';
+            for (; position_index < size; _increment()) {
+                current = input[position_index];
+                next = lookahead_index < size ? input[lookahead_index] : ' ';
                 switch (state) {
                 case INITIAL:
                     on_initial();
@@ -62,21 +62,21 @@ namespace parse {
         }
         void appendWord(SCAN_TOKEN_TYPE type) {
             Token token = Token();
-            token.position = position - currentWord.length() + 1;
+            token.position = position_index - currentWord.length() + 1;
             token.type = type;
             token.value = currentWord;
             tokens.push_back(token);
         }
         void append(SCAN_TOKEN_TYPE type, std::string value) {
             Token token = Token();
-            token.position = position;
+            token.position = position_index;
             token.type = type;
             token.value = value;
             tokens.push_back(token);
         }
         void _increment() {
-            position++;
-            lookahead++;
+            position_index++;
+            lookahead_index++;
         }
         void on_initial() {
             switch (current)
@@ -124,7 +124,7 @@ namespace parse {
                 }
                 else {
                     std::string p = std::string(1, current);
-                    std::string pos_str = std::to_string(position);
+                    std::string pos_str = std::to_string(position_index);
                     std::string message = "Unexpected symbol: '" + p + "' Near position: " + pos_str;
                     append_error(UNEXPECTED_SYMBOL, message);
                 }
@@ -177,8 +177,8 @@ namespace parse {
     public:
         ScanSession(std::string in) {
             input = in;
-            position = 0;
-            lookahead = 1;
+            position_index = 0;
+            lookahead_index = 1;
             finished = false;
             currentWord = "";
             current = ' ';
