@@ -93,7 +93,7 @@ namespace parse {
 	public:
 		virtual ASTNode build(std::vector<Token> tokens, std::vector<TokenError>& errors) = 0;
 	};
-	class UnaryMinusLayer;
+	class TopLayer;
 	
 
 	ASTNode to_next_layer(Layer* layer, std::vector<LayerItem> items, std::vector<TokenError>& errors) {
@@ -115,7 +115,7 @@ namespace parse {
 
 	class ExpressionLayer : public Layer {
 	private:
-		UnaryMinusLayer topLayer;
+		TopLayer topLayer;
 
 		std::string token_error_desc(std::vector<Token> tokens, std::size_t begin = 1) {
 			std::string s = "[ ";
@@ -235,39 +235,61 @@ namespace parse {
 	class PlusMinusLayer : public Layer {
 	private:
 		MultiplyDivideLayer nextLayer = MultiplyDivideLayer();
+		void is_unary_minus(std::vector<Token>& tokens, std::vector<TokenError>& errors, std::vector<Token>& subvertor, bool& unary_minus) {
+			bool searching_for_unary_minus = true;
+			Token current_token = tokens[0];
+			std::size_t size = tokens.size();
+			for (std::size_t i = 0; i < size; i++) {
+				if (searching_for_unary_minus) {
+					if (tokens[i].value == "-") {
+						unary_minus = !unary_minus;
+					}
+					else {
+						searching_for_unary_minus = false;
+						subvertor.push_back(tokens[i]);
+					}
+				}
+				else {
+					subvertor.push_back(tokens[i]);
+				}
+			}
+		}
 	public:
 		ASTNode build(std::vector<Token> tokens, std::vector<TokenError>& errors) override {
-			std::vector<LayerItem> items = sample_split(tokens, errors, { "+", "-" });
-			return to_next_layer(&nextLayer, items, errors);
+			if (tokens.empty()) {
+				errors.push_back(TokenError(EMPTY_INPUT, "Empty input"));
+				return ErrorNode();
+			}
+			bool unary_minus = false;
+			std::vector<Token> subvertor;
+			is_unary_minus(tokens, errors, subvertor, unary_minus);
+			std::vector<LayerItem> items = sample_split(subvertor, errors, { "+", "-" });
+			if (!errors.empty()) {
+				return ErrorNode();
+			}
+			LayerItem item = items[0];
+			ASTNode left = nextLayer.build(item.getTokens(), errors);
+			if (unary_minus) {
+				left = UnaryNode("-", left);
+			}
+			std::size_t i = 0;
+			while (item.getOperation() != "") {
+				LayerItem next = items[i + 1];
+				ASTNode right = nextLayer.build(item.getTokens(), errors);
+				left = OperationNode(left, item.getOperation(), right);
+				i++;
+				item = items[i];
+			}
+			return left;
 		}
 	};
 
-	class UnaryMinusLayer : public Layer {
+	class TopLayer : public Layer {
 	private:
 		PlusMinusLayer layer = PlusMinusLayer();
 	public:
 		ASTNode build(std::vector<Token> tokens, std::vector<TokenError>& errors) override {
-			std::vector<Token> remainingTokens;
-			bool unaries_end = false;
-			bool is_minus = false;
-			for (std::size_t i = 0; i < tokens.size(); i++) {
-				if (unaries_end) {
-					remainingTokens.push_back(tokens[i]);
-				}
-				else {
-					if (tokens[i].value == "-") {
-						is_minus = !is_minus;						
-					}
-					else {
-						remainingTokens.push_back(tokens[i]);
-					}
-				}
-			}
-			ASTNode next_layer = layer.build(remainingTokens, errors);
-			if (is_minus) {
-				return UnaryNode("-", next_layer);
-			}
-			return next_layer;
+			return layer.build(tokens, errors);
 		}
 	};
 
