@@ -28,5 +28,7 @@ public:
 		}
 		return true;
 	}
+	
+	FiniteNumber calculate(const std::string& expression);
 };
 
