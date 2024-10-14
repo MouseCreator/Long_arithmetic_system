@@ -1,4 +1,4 @@
 #pragma once
 
 
-const int MESSAGE_LEN = 100;
+const int MESSAGE_LEN = 4096;

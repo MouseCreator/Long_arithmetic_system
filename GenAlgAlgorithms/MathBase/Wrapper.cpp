@@ -1,6 +1,7 @@
 #include "FiniteNumber.h"
 #include "FiniteField.h"
 #include "Message.h"
+#include "Executor.h"
 #include <cstdlib>
 #include <cstring>
 #include <string>
@@ -54,39 +55,31 @@ extern "C" char* finite_field(const char* expression, const char* n, char* error
         PositiveNumber modNumber = PositiveNumber(n);
         std::string expr(expression);
         FiniteField field(modNumber);
-        FiniteNumber result = field.calculate(expr);  
-
+        
+        Executor executor = Executor();
+        Errors errors;
+        std::string resultString;
+        if (modNumber.isZero()) {
+            SignedNumber result;
+            executor.infinite_field(expr, &result, &errors);
+            resultString = result.toString();
+        }
+        else {
+            FiniteNumber result;
+            executor.finite_field(expr, &modNumber, &result, &errors);
+            resultString = result.toString();
+        }
+        if (errors.hasError()) {
+            strcpy(errorStr, errors.concat().c_str());
+            return;
+        }
         resStr = new char[MAX_MESSAGE_LENGTH];
-        std::string resultString = result.toString();
+        
         strcpy(resStr, resultString.c_str());
     }
     catch (const std::exception& ex)
     {
         strcpy(errorStr, ex.what());
-    }
-
-    return resStr;
-}
-
-
-extern "C" char*
-addition(char* a, char* b, char* mod, char* errorStr)
-{
-    char* resStr = nullptr;
-    try
-    {
-        PositiveNumber modNumber = PositiveNumber(mod);
-        FiniteNumber number1 = FiniteNumber(a, modNumber);
-        FiniteNumber number2 = FiniteNumber(b, modNumber);
-        FiniteNumber result = number1 + number2;
-
-        char* resStr = new char[MESSAGE_LEN];
-        std::string resultString = result.toString();
-        strcpy_s(resStr, MESSAGE_LEN, resultString.c_str());
-    }
-    catch (const std::exception& ex)
-    {
-        strcpy_s(errorStr, MESSAGE_LEN, ex.what());
     }
 
     return resStr;
