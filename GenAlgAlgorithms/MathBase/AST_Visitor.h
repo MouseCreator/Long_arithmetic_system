@@ -1,54 +1,29 @@
 #pragma once
-#include "AST.h"
+
 #include <sstream>
+#include <iostream>
+#include <optional>
+
+#include "AST.h"
 #include "SignedNumber.h"
-template <typename T>
-class ASTVisitor {
-	virtual T visit(ASTNode node) = 0;
-	virtual T visit(NumberNode number) = 0;
-	virtual T visit(VariableNode variable) = 0;
-	virtual T visit(OperationNode operation) = 0;
-	virtual T visit(FunctionNode func) = 0;
-};
+#include "AST_Generic_Visitor.h"
 
 
-class InfNumberFieldInterpreter : public ASTVisitor<SignedNumber> {
-
+class InfNumberFieldInterpreter : public ASTVisitor {
 private:
-	SignedNumber result = SignedNumber();
+	SignedNumber buffer;
 public:
-	virtual SignedNumber visit(ASTNode node) = 0;
-	virtual SignedNumber visit(NumberNode number) {
+	SignedNumber visit(NumberNode number) {
 		std::string digits = number.digits;
 		return SignedNumber(digits);
 	}
-	virtual SignedNumber visit(VariableNode variable) {
-
+	void visitVariable(VariableNode& variable) override{
+		setError("Variable is not allowed here: " + variable.var_name);
 	}
-	virtual SignedNumber visit(OperationNode operation) {
-		if (operation.operation == "+") {
-
-		}
-		else if (operation.operation == "-") {
-
-		}
-		else if (operation.operation == "*") {
-
-		}
-		else if (operation.operation == "/") {
-
-		}
-		else if (operation.operation == "^") {
-
-		}
-		else if (operation.operation == "%") {
-
-		}
-		else {
-
-		}
+	void visitOperation(OperationNode& operation) override {
+		
 	}
-	virtual SignedNumber visit(FunctionNode func) {
+	void visitFunction(FunctionNode& func) {
 		if (func.isNamed("sqrt")) {
 			// square root
 		}
@@ -64,5 +39,23 @@ public:
 		else {
 			// error
 		}
+	}
+	void visitUnary(UnaryNode& operation) override {
+
+	}
+	void visitNumber(NumberNode& number) override {
+
+	}
+	void writeBuffer(SignedNumber s) {
+		this->buffer = s;
+	}
+	SignedNumber readBuffer() {
+		return buffer;
+	}
+	std::optional <SignedNumber> safeReadBuffer() {
+		if (hasError()) {
+			return {};
+		}
+		return buffer;
 	}
 };

@@ -1,45 +1,43 @@
 #pragma once
 #include <iostream>
-#include "AST_Visitor.h"
 #include <vector>
 
-class ASTNode {
-	virtual void accept(ASTVisitor visitor);
-};
 
+#include "AST_Generic_Visitor.h"
 
-class AST {
-private:
-	ASTNode root;
-public:
-	ASTNode getRoot() {
-		return root;
-	}
-};
 
 class OperationNode : public ASTNode {
 public:
-	ASTNode left;
-	ASTNode right;
+	ASTNode* left = nullptr;
+	ASTNode* right = nullptr;
 	std::string operation;
-	OperationNode(ASTNode left, std::string operation, ASTNode right) {
+	OperationNode(ASTNode* left, std::string operation, ASTNode* right) {
 		this->left = left;
 		this->right = right;
 		this->operation = operation;
+	}
+	void accept(ASTVisitor& visitor) {
+		visitor.visitOperation(*this);
 	}
 };
 
 class UnaryNode : public ASTNode {
 public:
-	ASTNode target;
+	ASTNode* target;
 	std::string operation;
-	UnaryNode(std::string operation, ASTNode target) {
+	UnaryNode(std::string operation, ASTNode* target) {
 		this->target = target;
 		this->operation = operation;
+	}
+	void accept(ASTVisitor visitor) {
+		visitor.visitUnary(*this);
 	}
 };
 
 class ErrorNode : public ASTNode {
+	void accept(ASTVisitor visitor) {
+		visitor.setError("Visited error node");
+	}
 };
 class ValueNode : public ASTNode {
 };
@@ -48,6 +46,9 @@ public:
 	std::string digits;
 	NumberNode(std::string digits) {
 		this->digits = digits;
+	}
+	void accept(ASTVisitor visitor) {
+		visitor.visitNumber(*this);
 	}
 };
 class VariableNode : public ValueNode {
