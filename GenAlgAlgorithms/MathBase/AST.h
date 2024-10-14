@@ -3,7 +3,6 @@
 #include "AST_Visitor.h"
 #include <vector>
 
-
 class ASTNode {
 	virtual void accept(ASTVisitor visitor);
 };
@@ -69,5 +68,8 @@ public:
 	FunctionNode(std::string name, std::vector<ASTNode> arguments) {
 		this->functionName = name;
 		this->arguments = arguments;
+	}
+	bool isNamed(std::string expected_name) {
+		return expected_name == functionName;
 	}
 };
