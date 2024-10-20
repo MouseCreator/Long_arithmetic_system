@@ -406,3 +406,6 @@ Backend/API/obj/Debug/net8.0/API.csproj.AssemblyReference.cache
 Backend/API/obj/Debug/net8.0/API.GeneratedMSBuildEditorConfig.editorconfig
 Backend/API/obj/project.assets.json
 Backend/API/obj/project.nuget.cache
+
+**/.idea/
+**/.vs/
