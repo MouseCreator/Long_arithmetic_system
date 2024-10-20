@@ -6,48 +6,8 @@ namespace API.BinaryWrappers
 	{
 		public static class FiniteFieldMethods
 		{
-			[DllImport("global-wrapper")]
-			public static extern unsafe byte* addition(byte* a, byte* b, byte* mod, byte* errStr);
-
-			[DllImport("global-wrapper")]
-			public static extern unsafe byte* subtraction(byte* a, byte* b, byte* mod, byte* errStr);
-
-			[DllImport("global-wrapper")]
-			public static extern unsafe byte* multiplication(byte* a, byte* b, byte* mod, byte* errStr);
-
-			[DllImport("global-wrapper")]
-			public static extern unsafe byte* division(byte* a, byte* b, byte* mod, byte* errStr);
-
-			[DllImport("global-wrapper")]
-			public static extern unsafe byte* fastPow(byte* a, byte* degree, byte* mod, byte* errStr);
-
-			[DllImport("global-wrapper")]
-			public static extern unsafe byte* inverse(byte* num, byte* mod, byte* errStr);
-
-			[DllImport("global-wrapper")]
-			public static extern unsafe byte* factorizePolard(ref int size, byte* num, byte* mod, byte* errorStr);
-
-			[DllImport("global-wrapper")]
-			public static extern unsafe byte* factorizeSimple(ref int size, byte* num, byte* mod, byte* errorStr);
-
-			[DllImport("global-wrapper")]
-			public static extern unsafe byte* discreteSqrt(ref int size, byte* num, byte* mod, byte* errStr);
-
-			[DllImport("global-wrapper")]
-			public static extern unsafe byte* discreteLog(byte* num, byte* basa, byte* mod, byte* errStr);
-
-
-			[DllImport("global-wrapper")]
-			public static extern unsafe bool isGenerator(byte* num, byte* mod, byte* errStr);
-
-			[DllImport("global-wrapper")]
-			public static extern unsafe byte* CarmichaelFunction(byte* num, byte* mod, byte* errStr);
-
-			[DllImport("global-wrapper")]
-			public static extern unsafe bool isPrime(byte* num, byte* mod, byte* iterations, byte* errStr);
-
-			[DllImport("global-wrapper")]
-			public static extern unsafe byte* EulerFunction(byte* num, byte* mod, byte* errStr);
+			[DllImport("wrapper.so")]
+			public static extern unsafe byte* finite_field(byte* expression, byte* n, byte* errorStr);
 		}
 
 		public static class PolyRingMethods

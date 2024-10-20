@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers(); 
 
 builder.Services.AddCors(options =>
 {
@@ -31,5 +32,6 @@ app.UseMiddleware<TimeoutMiddleware>();
 app.UseMiddleware<ResponseMiddleware>();
 
 app.MapGeneral_Get();
+app.MapControllers();
 
 app.Run();

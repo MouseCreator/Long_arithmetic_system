@@ -25,5 +25,6 @@
     
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
         <Exec Command="bash prepare-cpp-binaries.sh" />
+        <Copy SourceFiles="cpp-lib-binaries/wrapper.so" DestinationFolder="$(OutputPath)" />
     </Target>
 </Project>
