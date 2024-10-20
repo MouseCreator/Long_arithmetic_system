@@ -22,5 +22,8 @@
     <ItemGroup>
       <Folder Include="cpp-lib-binaries\" />
     </ItemGroup>
-
+    
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="bash prepare-cpp-binaries.sh" />
+    </Target>
 </Project>
