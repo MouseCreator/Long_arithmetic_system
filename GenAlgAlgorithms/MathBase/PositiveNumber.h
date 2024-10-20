@@ -3,6 +3,7 @@
 #include <vector>
 #include <cmath>
 #include <string>
+#include <algorithm>
 
 /**
 * Class for number in infinite field

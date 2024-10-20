@@ -71,7 +71,7 @@ extern "C" char* finite_field(const char* expression, const char* n, char* error
         }
         if (errors.hasError()) {
             strcpy(errorStr, errors.concat().c_str());
-            return;
+            return resStr;
         }
         resStr = new char[MAX_MESSAGE_LENGTH];
         

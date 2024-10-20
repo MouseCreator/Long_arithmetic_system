@@ -29,6 +29,6 @@ public:
 		return true;
 	}
 	
-	FiniteNumber calculate(const std::string& expression);
+	PositiveNumber calculate(const std::string& expression);
 };
 
